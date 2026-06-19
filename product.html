@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>商品詳情 | AURA 頂級履鞋</title>
+  <meta name="description" content="瀏覽商品詳細資訊，包括材質說明、尺寸挑選與手工藝細節。AURA 提供頂級時尚履鞋，隨心選購，享受尊榮配送服務。">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Global Header injected by main.js -->
+  <header id="globalHeader"></header>
+
+  <!-- Main Content -->
+  <main>
+    <!-- Dynamic Product Details -->
+    <div class="product-detail-container" id="productDetailContainer">
+      <!-- Dynamically Injected by JavaScript -->
+    </div>
+
+    <!-- Related Products Section -->
+    <section class="section section-bg" style="padding-top: 5rem; padding-bottom: 5rem;">
+      <div class="section-header" style="margin-bottom: 3.5rem;">
+        <span class="subtitle">RECOMMENDATIONS</span>
+        <h2>您可能也會喜歡</h2>
+      </div>
+      <div class="products-grid" id="relatedProductsGrid">
+        <!-- Dynamic Related Products -->
+      </div>
+    </section>
+  </main>
+
+  <!-- Global Footer injected by main.js -->
+  <footer id="globalFooter"></footer>
+
+  <!-- Shopping Cart drawer and modal container -->
+  <div id="globalCart"></div>
+
+  <!-- Loading Scripts -->
+  <script src="js/data.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    let currentProduct = null;
+    let selectedSize = null;
+
+    document.addEventListener('DOMContentLoaded', () => {
+      loadProductDetail();
+    });
+
+    function loadProductDetail() {
+      // 1. Parse Query Parameter (e.g. ?id=men_1)
+      const urlParams = new URLSearchParams(window.location.search);
+      const productId = urlParams.get('id');
+
+      if (!productId && typeof PRODUCTS !== 'undefined') {
+        // Fallback to first product if no ID is provided
+        window.location.href = 'index.html';
+        return;
+      }
+
+      currentProduct = PRODUCTS.find(p => p.id === productId);
+
+      if (!currentProduct) {
+        // If product does not exist, redirect to index
+        window.location.href = 'index.html';
+        return;
+      }
+
+      // 2. Set Page Title dynamically
+      document.title = `${currentProduct.name} | AURA 頂級履鞋`;
+
+      // 3. Render Product Detail Layout
+      const detailContainer = document.getElementById('productDetailContainer');
+      if (detailContainer) {
+        selectedSize = currentProduct.sizes[0]; // default select first size
+        
+        let sizesHTML = '';
+        currentProduct.sizes.forEach(size => {
+          const isSelected = size === selectedSize ? 'selected' : '';
+          sizesHTML += `<button class="size-option ${isSelected}" data-size="${size}">${size}</button>`;
+        });
+
+        let specsHTML = '';
+        currentProduct.specs.forEach(spec => {
+          specsHTML += `<div class="spec-item">• ${spec}</div>`;
+        });
+
+        detailContainer.innerHTML = `
+          <div class="product-gallery">
+            <img src="${currentProduct.image}" alt="${currentProduct.name}">
+          </div>
+          <div class="product-meta-details">
+            <span class="detail-category">${currentProduct.categoryName}</span>
+            <h1 class="detail-name">${currentProduct.name}</h1>
+            <span class="detail-english">${currentProduct.englishName}</span>
+            <div class="detail-price">NT$ ${currentProduct.price.toLocaleString()}</div>
+            <p class="detail-description">${currentProduct.description}</p>
+            
+            <div class="detail-size-section">
+              <div class="size-label">
+                <span>選擇尺寸</span>
+                <a href="#" style="font-size:0.8rem; text-decoration:underline; color:var(--accent-gold);" onclick="event.preventDefault(); alert('尺寸指引：\\n男鞋建議依歐碼選取對應運動鞋尺寸即可。\\n女鞋版型正常，若腳板偏寬建議選大一碼。\\n童鞋請依寶貝實際腳長加1公分對應選購。')">尺寸指引</a>
+              </div>
+              <div class="size-selector" id="sizeSelectorContainer">
+                ${sizesHTML}
+              </div>
+            </div>
+
+            <div class="detail-actions">
+              <div class="detail-qty">
+                <button type="button" id="qtyMinusBtn">-</button>
+                <input type="number" id="qtyInput" value="1" min="1" readonly>
+                <button type="button" id="qtyPlusBtn">+</button>
+              </div>
+              <button class="btn btn-gold detail-add-btn" id="addToCartBtn">加入購物袋</button>
+            </div>
+
+            <div class="specs-list">
+              <h4 style="font-family:var(--font-sans); font-size:0.9rem; font-weight:600; text-transform:uppercase; letter-spacing:0.05em; margin-bottom:0.5rem;">商品規格與材質</h4>
+              ${specsHTML}
+            </div>
+          </div>
+        `;
+
+        // Bind Size Click Event
+        const sizeButtons = document.querySelectorAll('#sizeSelectorContainer .size-option');
+        sizeButtons.forEach(btn => {
+          btn.addEventListener('click', () => {
+            sizeButtons.forEach(b => b.classList.remove('selected'));
+            btn.classList.add('selected');
+            selectedSize = btn.getAttribute('data-size');
+          });
+        });
+
+        // Bind Quantity Click Event
+        const qtyInput = document.getElementById('qtyInput');
+        const qtyMinusBtn = document.getElementById('qtyMinusBtn');
+        const qtyPlusBtn = document.getElementById('qtyPlusBtn');
+
+        qtyMinusBtn.addEventListener('click', () => {
+          let currentVal = parseInt(qtyInput.value);
+          if (currentVal > 1) qtyInput.value = currentVal - 1;
+        });
+
+        qtyPlusBtn.addEventListener('click', () => {
+          let currentVal = parseInt(qtyInput.value);
+          qtyInput.value = currentVal + 1;
+        });
+
+        // Bind Add To Cart Click Event
+        const addToCartBtn = document.getElementById('addToCartBtn');
+        addToCartBtn.addEventListener('click', () => {
+          const qty = parseInt(qtyInput.value);
+          addToCart(currentProduct.id, selectedSize, qty);
+        });
+      }
+
+      // 4. Render Related Products (same category, max 4 products, excluding current one)
+      const relatedGrid = document.getElementById('relatedProductsGrid');
+      if (relatedGrid) {
+        let relatedItems = PRODUCTS.filter(p => p.category === currentProduct.category && p.id !== currentProduct.id);
+        
+        // If not enough related items, pad with some others
+        if (relatedItems.length < 4) {
+          const extraItems = PRODUCTS.filter(p => p.category !== currentProduct.category).slice(0, 4 - relatedItems.length);
+          relatedItems = [...relatedItems, ...extraItems];
+        }
+
+        // Limit to 4 items
+        relatedItems = relatedItems.slice(0, 4);
+
+        let relatedHTML = '';
+        relatedItems.forEach(product => {
+          relatedHTML += `
+            <div class="product-card">
+              <div class="product-image">
+                <img src="${product.image}" alt="${product.name}">
+                <div class="product-actions">
+                  <button class="action-btn quick-add" onclick="addToCart('${product.id}', '${product.sizes[0]}')">加入購物車</button>
+                  <button class="action-btn quick-view" onclick="openQuickView('${product.id}')">快速瀏覽</button>
+                </div>
+              </div>
+              <div class="product-info">
+                <span class="product-category">${product.categoryName}</span>
+                <h3 class="product-name"><a href="product.html?id=${product.id}">${product.name}</a></h3>
+                <div class="product-price">NT$ ${product.price.toLocaleString()}</div>
+              </div>
+            </div>
+          `;
+        });
+        relatedGrid.innerHTML = relatedHTML;
+      }
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>童鞋系列 | AURA 頂級履鞋</title>
+  <meta name="description" content="專為成長期寶貝設計的 AURA 兒童鞋款。熱銷單品包括大網眼透氣運動鞋、親膚純棉魔鬼氈帆布鞋、戶外防水登山鞋與加厚羊羔絨保暖雪地靴。安全無毒防滑設計。">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Global Header injected by main.js -->
+  <header id="globalHeader"></header>
+
+  <!-- Main Content -->
+  <main>
+    <section class="section" style="padding-top: 4rem;">
+      <!-- Filter and Header bar -->
+      <div class="filter-bar">
+        <div class="category-title">
+          <span class="subtitle">AURA KIDS</span>
+          <h1>童鞋系列</h1>
+        </div>
+        <div class="filter-controls">
+          <span class="product-count" id="productCount">共 0 件商品</span>
+          <select class="sort-select" id="sortSelect">
+            <option value="default">預設排序</option>
+            <option value="price-asc">價格：由低到高</option>
+            <option value="price-desc">價格：由高到低</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Products Grid -->
+      <div class="products-grid" id="productsGrid">
+        <!-- Dynamically populated -->
+      </div>
+    </section>
+  </main>
+
+  <!-- Global Footer injected by main.js -->
+  <footer id="globalFooter"></footer>
+
+  <!-- Shopping Cart drawer and modal container -->
+  <div id="globalCart"></div>
+
+  <!-- Loading Scripts -->
+  <script src="js/data.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    const CATEGORY = 'kids';
+
+    document.addEventListener('DOMContentLoaded', () => {
+      renderCategoryProducts();
+    });
+
+    function renderCategoryProducts() {
+      const grid = document.getElementById('productsGrid');
+      const countSpan = document.getElementById('productCount');
+      const sortSelect = document.getElementById('sortSelect');
+
+      if (!grid || typeof PRODUCTS === 'undefined') return;
+
+      // Filter products by CATEGORY
+      let items = PRODUCTS.filter(p => p.category === CATEGORY);
+
+      function sortItems(sortBy) {
+        if (sortBy === 'price-asc') {
+          items.sort((a, b) => a.price - b.price);
+        } else if (sortBy === 'price-desc') {
+          items.sort((a, b) => b.price - a.price);
+        } else {
+          items = PRODUCTS.filter(p => p.category === CATEGORY);
+        }
+        
+        let html = '';
+        items.forEach(product => {
+          html += `
+            <div class="product-card">
+              <div class="product-image">
+                <img src="${product.image}" alt="${product.name}">
+                <div class="product-actions">
+                  <button class="action-btn quick-add" onclick="addToCart('${product.id}', '${product.sizes[0]}')">加入購物車</button>
+                  <button class="action-btn quick-view" onclick="openQuickView('${product.id}')">快速瀏覽</button>
+                </div>
+              </div>
+              <div class="product-info">
+                <span class="product-category">${product.categoryName}</span>
+                <h3 class="product-name"><a href="product.html?id=${product.id}">${product.name}</a></h3>
+                <div class="product-price">NT$ ${product.price.toLocaleString()}</div>
+              </div>
+            </div>
+          `;
+        });
+        grid.innerHTML = html;
+        if (countSpan) countSpan.textContent = `共 ${items.length} 件商品`;
+      }
+
+      // Initial render
+      sortItems('default');
+
+      // Change sort listener
+      if (sortSelect) {
+        sortSelect.addEventListener('change', (e) => {
+          sortItems(e.target.value);
+        });
+      }
+    }
+  </script>
+</body>
+</html>

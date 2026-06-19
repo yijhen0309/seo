@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AURA 頂級履鞋 | 極致工藝與優雅時尚</title>
+  <meta name="description" content="AURA 頂級履鞋結合義大利手工藝與人體工學，為您打造極致舒適、高端優雅的紳士皮鞋、女士高跟鞋、運動鞋與兒童履鞋。踏出屬於您的尊榮步伐。">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+  <!-- Global Header injected by main.js -->
+  <header id="globalHeader"></header>
+
+  <!-- Main Content -->
+  <main>
+    <!-- Hero Slider Section -->
+    <section class="hero-slider">
+      <!-- Slide 1 -->
+      <div class="hero-slide active">
+        <div class="hero-image-wrapper">
+          <img src="assets/products/men_1.png" alt="AURA 紳士系列">
+        </div>
+        <div class="hero-content">
+          <span class="subtitle">AURA CLASSIC COLLECTION</span>
+          <h1>匠心獨運<br>經典紳士系列</h1>
+          <p style="color: var(--text-secondary); margin-bottom: 2.5rem; font-size: 1.1rem;">
+            精選頂級義大利牛皮，傳承百年手工縫製工藝。為卓越男士打造兼具氣場與尊榮腳感的正裝皮鞋。
+          </p>
+          <a href="men.html" class="btn btn-gold">探索男士系列</a>
+        </div>
+      </div>
+      <!-- Slide 2 -->
+      <div class="hero-slide">
+        <div class="hero-image-wrapper">
+          <img src="assets/products/women_3.png" alt="AURA 都市女鞋系列">
+        </div>
+        <div class="hero-content">
+          <span class="subtitle">AURA WOMEN RUNWAY</span>
+          <h1>步履搖曳<br>都市時尚魅力</h1>
+          <p style="color: var(--text-secondary); margin-bottom: 2.5rem; font-size: 1.1rem;">
+            引領街頭潮流的厚底設計與奢華絲絨高跟，完美揉合前衛美學與日常實用穿著，釋放極致女性氣息。
+          </p>
+          <a href="women.html" class="btn btn-gold">探索女士系列</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Brand Philosophy Section -->
+    <section class="section">
+      <div class="section-header">
+        <span class="subtitle">BRAND PHILOSOPHY</span>
+        <h2>對每一針一線的極致堅持</h2>
+      </div>
+      <div class="features-grid">
+        <div class="feature-item">
+          <div class="feature-icon">🇮🇹</div>
+          <h3>義大利工藝</h3>
+          <p>每雙鞋均源自歐洲頂級手工坊，由數十年經驗老匠人精雕細琢，傳承不朽藝術價值。</p>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon">🪵</div>
+          <h3>頂級天然皮革</h3>
+          <p>嚴選頭層小牛皮、麂皮等天然環保皮料，毛細孔清晰，柔軟透氣且抗摺耐磨。</p>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon">👟</div>
+          <h3>人體工學設計</h3>
+          <p>專利高回彈乳膠中底與減震貼片，貼合亞洲人腳型，給予雙腳無與倫比的釋壓支撐。</p>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon">✨</div>
+          <h3>尊榮售後保固</h3>
+          <p>凡購買 AURA 履鞋均享有兩年免費手工基礎清潔、皮革滋潤保養與諮詢服務。</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Featured Collections (Promo Grid) -->
+    <section class="section section-bg" style="padding-top: 5rem; padding-bottom: 5rem;">
+      <div class="category-promo-grid">
+        <div class="category-promo-card">
+          <img src="assets/products/men_3.png" alt="Men's Boots Collection">
+          <div class="category-promo-info">
+            <h3>經典男士靴履</h3>
+            <p>融合粗獷線條與細緻剪裁，打造秋冬雅痞極致典範。</p>
+            <a href="men.html" class="category-promo-link">立即選購</a>
+          </div>
+        </div>
+        <div class="category-promo-card">
+          <img src="assets/products/women_1.png" alt="Women's Heels Collection">
+          <div class="category-promo-info">
+            <h3>典雅女士跟鞋</h3>
+            <p>光影折射下的絲絨微光，拉長身形線條的完美弧度。</p>
+            <a href="women.html" class="category-promo-link">探索系列</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Featured Products Slider / Grid -->
+    <section class="section">
+      <div class="section-header">
+        <span class="subtitle">OUR FAVORITES</span>
+        <h2>本季熱銷單品</h2>
+      </div>
+      <div class="products-grid" id="featuredProductsGrid">
+        <!-- Dynamically populated via script -->
+      </div>
+      <div style="text-align: center; margin-top: 4rem;">
+        <a href="men.html" class="btn btn-secondary">瀏覽全部產品</a>
+      </div>
+    </section>
+  </main>
+
+  <!-- Global Footer injected by main.js -->
+  <footer id="globalFooter"></footer>
+
+  <!-- Shopping Cart drawer and modal container -->
+  <div id="globalCart"></div>
+
+  <!-- Loading Scripts -->
+  <script src="js/data.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    // Hero Slider Animation
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.hero-slide');
+
+    function nextSlide() {
+      slides[currentSlide].classList.remove('active');
+      currentSlide = (currentSlide + 1) % slides.length;
+      slides[currentSlide].classList.add('active');
+    }
+
+    setInterval(nextSlide, 6000); // Rotate every 6s
+
+    // Dynamically load 4 featured products
+    document.addEventListener('DOMContentLoaded', () => {
+      const grid = document.getElementById('featuredProductsGrid');
+      if (grid && typeof PRODUCTS !== 'undefined') {
+        // Pick 4 featured products (e.g. Oxford, Sneaker, Stiletto, Kids Active)
+        const featuredIds = ['men_1', 'men_2', 'women_1', 'kids_3'];
+        const items = PRODUCTS.filter(p => featuredIds.includes(p.id));
+
+        let html = '';
+        items.forEach(product => {
+          html += `
+            <div class="product-card">
+              <div class="product-image">
+                <img src="${product.image}" alt="${product.name}">
+                <div class="product-badge">HOT</div>
+                <div class="product-actions">
+                  <button class="action-btn quick-add" onclick="addToCart('${product.id}', '${product.sizes[0]}')">加入購物車</button>
+                  <button class="action-btn quick-view" onclick="openQuickView('${product.id}')">快速瀏覽</button>
+                </div>
+              </div>
+              <div class="product-info">
+                <span class="product-category">${product.categoryName}</span>
+                <h3 class="product-name"><a href="product.html?id=${product.id}">${product.name}</a></h3>
+                <div class="product-price">NT$ ${product.price.toLocaleString()}</div>
+              </div>
+            </div>
+          `;
+        });
+        grid.innerHTML = html;
+      }
+    });
+  </script>
+</body>
+
+</html>

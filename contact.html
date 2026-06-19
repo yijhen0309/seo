@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>聯絡我們 | AURA 頂級履鞋</title>
+  <meta name="description" content="聯絡 AURA 顧客尊榮服務團隊。不論是商品規格詢問、預約實體門市試穿、退換貨申請或企業合作提案，歡迎填寫聯絡表單，我們將竭誠為您服務。">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Global Header injected by main.js -->
+  <header id="globalHeader"></header>
+
+  <!-- Main Content -->
+  <main>
+    <div class="contact-container">
+      <!-- Info Column -->
+      <div class="contact-info-col">
+        <div>
+          <span class="subtitle">GET IN TOUCH</span>
+          <h2>聯絡我們</h2>
+        </div>
+        <p class="contact-intro">
+          不論您有任何尺寸挑選疑問、門市庫存查詢、客製化鞋撐訂製或是訂單疑問，我們的尊榮客戶服務團隊都將竭誠為您服務。歡迎填寫右側表單或直接與我們的旗艦門市聯繫。
+        </p>
+        
+        <div class="contact-details">
+          <div class="contact-detail-item">
+            <div class="contact-icon">📍</div>
+            <div class="contact-text">
+              <h4>AURA 台北敦南旗艦店</h4>
+              <p>台北市大安區敦化南路一段 100 號 AURA 旗艦大樓 1 樓</p>
+            </div>
+          </div>
+          <div class="contact-detail-item">
+            <div class="contact-icon">📞</div>
+            <div class="contact-text">
+              <h4>服務專線與預約電話</h4>
+              <p>+886 (02) 2775-8888</p>
+            </div>
+          </div>
+          <div class="contact-detail-item">
+            <div class="contact-icon">✉️</div>
+            <div class="contact-text">
+              <h4>顧客服務信箱</h4>
+              <p>support@aurafootwear.com</p>
+            </div>
+          </div>
+          <div class="contact-detail-item">
+            <div class="contact-icon">⏰</div>
+            <div class="contact-text">
+              <h4>營業與客服時間</h4>
+              <p>週一至週日 11:00 - 21:30 (國定假日照常營業)</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Styled Map Mock -->
+        <div class="contact-map-mock">
+          <div style="z-index: 10; text-align: center; background-color: var(--bg-primary); padding: 1.5rem 2rem; border: 1px solid var(--border-color); box-shadow: var(--shadow-light);">
+            <strong style="color:var(--text-primary);">AURA TAIPEI FLAGSHIP STORE</strong>
+            <p style="font-size: 0.8rem; color: var(--text-secondary); margin-top: 0.25rem;">敦化南路一段 100 號</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Form Column -->
+      <div class="contact-form-col">
+        <h3>填寫聯絡表單</h3>
+        <form id="contactForm">
+          <div class="form-group">
+            <label for="name">您的姓名 *</label>
+            <input type="text" id="name" class="form-control" placeholder="例：林雅筑" required>
+          </div>
+          <div class="form-group">
+            <label for="email">電子信箱 *</label>
+            <input type="email" id="email" class="form-control" placeholder="例：grace@example.com" required>
+          </div>
+          <div class="form-group">
+            <label for="phone">聯絡電話</label>
+            <input type="tel" id="phone" class="form-control" placeholder="例：0912-345678">
+          </div>
+          <div class="form-group">
+            <label for="subject">主旨 *</label>
+            <select id="subject" class="form-control" required style="cursor: pointer;">
+              <option value="">請選擇諮詢類別</option>
+              <option value="size">尺寸與版型選擇諮詢</option>
+              <option value="store">門市試穿與商品預留預約</option>
+              <option value="order">訂單配送與售後保養</option>
+              <option value="collab">商務合作提案</option>
+              <option value="other">其他問題</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="message">您的訊息內容 *</label>
+            <textarea id="message" class="form-control" placeholder="請詳細寫下您的需求，我們將儘速回覆您..." required></textarea>
+          </div>
+          <button type="submit" class="btn btn-gold submit-btn">傳送您的訊息</button>
+        </form>
+        <div class="form-success-message" id="formSuccess">
+          ✓ 您的訊息已成功傳送！我們的客服專員將在 24 小時內與您聯繫。
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Global Footer injected by main.js -->
+  <footer id="globalFooter"></footer>
+
+  <!-- Shopping Cart drawer and modal container -->
+  <div id="globalCart"></div>
+
+  <!-- Loading Scripts -->
+  <script src="js/data.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const contactForm = document.getElementById('contactForm');
+      const formSuccess = document.getElementById('formSuccess');
+
+      if (contactForm) {
+        contactForm.addEventListener('submit', (e) => {
+          e.preventDefault();
+          
+          // Simulation of sending form
+          // Disable form elements
+          const inputs = contactForm.querySelectorAll('.form-control, button');
+          inputs.forEach(input => input.disabled = true);
+          
+          // Show success message with delay
+          setTimeout(() => {
+            contactForm.style.display = 'none';
+            formSuccess.style.display = 'block';
+            formSuccess.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          }, 800);
+        });
+      }
+    });
+  </script>
+</body>
+</html>
